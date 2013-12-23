@@ -79,7 +79,9 @@ sudo salt-call --local saltutil.sync_modules
 sudo salt-call --local saltutil.sync_states
 ```
 
-### Manage github teams (members, repos, permissions) declaratively V1
+## Examples
+
+### Manage github teams declaratively
 
 Create a file in this repo called `salt/github/init.sls`.
 This file will describe the state of github you'd like to maintain.
@@ -109,10 +111,11 @@ sudo salt-call --local state.sls github
 
 This will run the state described in `salt/github/init.sls` and output what it changed.
 
-### Manage github teams (members, repos, permissions) decalaritively V2
+### Advanced management of github teams
 
 [Pillar](http://salt.readthedocs.org/en/latest/topics/pillar/) is salt's way of exposing structured data that can be used in state files.
-Create a file in this repo called `pillar/github/init.sls`:
+Salt looks for pillar data in `/srv/pillar` by default.
+Create this directory (or make it in this repo and symlink it like the `salt` directory), and add a file called `pillar/github/init.sls`:
 
 ```yaml
 github:
@@ -127,7 +130,7 @@ github:
       repos:
         - Clever/clever-js
         ...
-      strict: False
+      strict: True
 ```
 
 Create a pillar "top" file at `pillar/top.sls` that will load this data on any salt command:
@@ -140,7 +143,7 @@ base:
 
 Salt lets you define states using jinja templates.
 This means we can change the github state to iterate programatically over the data in pillar.
-Create a templatized state file that `salt/github/init.sls`:
+Create a templatized state file at `salt/github/init.sls`:
 
 ```yaml
 {% for team in pillar.github.teams %}
