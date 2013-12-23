@@ -12,14 +12,14 @@ Salt [execution modules](http://docs.saltstack.com/ref/modules/) are functions c
 You can string together lots of calls to different modules in an imperative fashion.
 For example, here's how you'd use the [useradd](http://docs.saltstack.com/ref/modules/all/salt.modules.useradd.html#module-salt.modules.useradd) module to add a user to called "fred" to your local system:
 
-```
+```bash
 sudo salt-call --local user.add fred <uid> <gid>
 ```
 
 Salt [states](http://docs.saltstack.com/ref/states/) are a way to declaratively enforce configuration of software on machines.
 For example, the following YAML config ensures that there's a `fred` user account on a server:
 
-```
+```yaml
 fred:
   user.present:
     - fullname: Fred Jones
@@ -52,13 +52,13 @@ Before any of these examples work you must install salt.
 The salt [bootstrap](https://github.com/saltstack/salt-bootstrap) is an easy way to do this.
 salt-org is currently tested against salt v0.17.4:
 
-```
+```bash
 curl -L http://bootstrap.saltstack.org | sudo sh -s -- git v0.17.4
 ```
 
 Test that it works by calling some builtin modules:
 
-```
+```bash
 sudo salt-call --local test.ping
 sudo salt-call --local user.list_users
 ```
@@ -66,7 +66,7 @@ sudo salt-call --local user.list_users
 Salt looks for configuration, custom modules, etc. in `/srv/salt` default.
 If this directory don't exist, you can symlink this repo's `salt` directory to that location:
 
-```
+```bash
 sudo ln -s `pwd`/salt /srv/salt
 ```
 
@@ -74,7 +74,7 @@ If you already have a `/srv/salt` directory, you should extend the contents of `
 
 Have salt load the custom modules/states in this repo:
 
-```
+```bash
 sudo salt-call --local saltutil.sync_modules
 sudo salt-call --local saltutil.sync_states
 ```
@@ -105,7 +105,7 @@ github-Engineering:
 
 Apply the state:
 
-```
+```bash
 sudo salt-call --local state.sls github
 ```
 
@@ -167,7 +167,7 @@ github-{{ team.name }}:
 
 Now run the state as usual:
 
-```
+```bash
 sudo salt-call --local state.sls github
 ```
 
