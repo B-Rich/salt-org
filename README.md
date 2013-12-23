@@ -1,10 +1,10 @@
 ## salt-org
 
-Use [Salt](http://www.saltstack.com) to manage accounts and settings for your organization.
+Use [Salt](http://www.saltstack.com) to manage accounts and settings for your organization in various programs.
 
 ## Why
 
-You use config management to manage servers (user accounts, settings, etc.), so why not use it to manage your organization?
+You use config management to manage servers (user accounts, settings, etc.), so why not use it to manage GitHub teams, Google Apps, AWS groups, etc.?
 
 ## How
 
