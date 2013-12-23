@@ -17,7 +17,7 @@ def list_org(token, org, type=all):
 
     .. code-block:: bash
 
-        salt '*' gh_repos.list_org <token> <org> <type>
+        sudo salt-call --local gh_repos.list_org <token> <org> <type>
     '''
     page = 0
     page_results = []

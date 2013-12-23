@@ -1,6 +1,6 @@
 '''
 Management of teams in GitHub
-=========================
+=============================
 
 The gh_team module is used to create and manage GitHub team settings. Teams
 can be either present or absent:

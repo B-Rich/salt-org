@@ -17,7 +17,7 @@ def list(token, org):
 
     .. code-block:: bash
 
-        salt '*' gh_team.list <token> <org>
+        sudo salt-call --local gh_team.list <token> <org>
     '''
     r = requests.get('https://api.github.com/orgs/{}/teams'.format(org), auth=(token, ''))
     if not r.ok:
@@ -33,7 +33,7 @@ def add(token, org, name, permission, repos=[]):
 
     .. code-block:: bash
 
-        salt '*' gh_team.add <token> <org> <team name> <permission>
+        sudo salt-call --local gh_team.add <token> <org> <team name> <permission>
     '''
     headers = {'Content-type': 'application/json'}
     payload = {"name": name, "permission": permission, "repo_names": repos}
@@ -54,7 +54,7 @@ def get(token, team_id):
 
     .. code-block:: bash
 
-        salt '*' gh_team.get <token> <team id>
+        sudo salt-call --local gh_team.get <token> <team id>
     '''
     r = requests.get('https://api.github.com/teams/{}'.format(team_id), auth=(token, ''))
     if not r.ok:
@@ -70,7 +70,7 @@ def remove(token, team_id):
 
     .. code-block:: bash
 
-        salt '*' gh_team.remove <token> <team id>
+        sudo salt-call --local gh_team.remove <token> <team id>
     '''
     r = requests.delete('https://api.github.com/teams/{}'.format(team_id), auth=(token, ''))
     if not r.ok:
@@ -86,7 +86,7 @@ def edit(token, team_id, name, permission):
 
     .. code-block:: bash
 
-        salt '*' gh_team.edit <token> <team id> <new team name> <new team permission>
+        sudo salt-call --local gh_team.edit <token> <team id> <new team name> <new team permission>
     '''
     headers = {'Content-type': 'application/json'}
     payload = {"name": name, "permission": permission}
@@ -108,7 +108,7 @@ def list_members(token, team_id):
 
     .. code-block:: bash
 
-        salt '*' gh_team.list_members <token> <team id>
+        sudo salt-call --local gh_team.list_members <token> <team id>
     '''
     r = requests.get('https://api.github.com/teams/{}/members'.format(team_id),
                        auth=(token, ''))
@@ -125,7 +125,7 @@ def get_member(token, team_id, user):
 
     .. code-block:: bash
 
-        salt '*' gh_team.get_member <token> <team id> <username>
+        sudo salt-call --local gh_team.get_member <token> <team id> <username>
     '''
     r = requests.get('https://api.github.com/teams/{}/members/{}'.format(team_id, user),
                      auth=(token, ''))
@@ -139,7 +139,7 @@ def add_member(token, team_id, user):
 
     .. code-block:: bash
 
-        salt '*' gh_team.add_member <token> <team id> <username>
+        sudo salt-call --local gh_team.add_member <token> <team id> <username>
     '''
     r = requests.put('https://api.github.com/teams/{}/members/{}'.format(team_id, user),
                      auth=(token, ''))
@@ -156,7 +156,7 @@ def remove_member(token, team_id, user):
 
     .. code-block:: bash
 
-        salt '*' gh_team.remove_member <token> <team id> <username>
+        sudo salt-call --local gh_team.remove_member <token> <team id> <username>
     '''
     r = requests.delete('https://api.github.com/teams/{}/members/{}'.format(team_id, user),
                      auth=(token, ''))
@@ -174,7 +174,7 @@ def list_repos(token, team_id):
 
     .. code-block:: bash
 
-        salt '*' gh_team.list_repos <token> <team id>
+        sudo salt-call --local gh_team.list_repos <token> <team id>
     '''
     r = requests.get('https://api.github.com/teams/{}/repos'.format(team_id),
                        auth=(token, ''))
@@ -191,7 +191,7 @@ def get_repo(token, team_id, repo):
 
     .. code-block:: bash
 
-        salt '*' gh_team.get_repo <token> <team id> <Org/repo>
+        sudo salt-call --local gh_team.get_repo <token> <team id> <Org/repo>
     '''
     r = requests.get('https://api.github.com/teams/{}/repos/{}'.format(team_id, repo),
                      auth=(token, ''))
@@ -205,7 +205,7 @@ def add_repo(token, team_id, repo):
 
     .. code-block:: bash
 
-        salt '*' gh_team.add_repo <token> <team id> <Org/repo>
+        sudo salt-call --local gh_team.add_repo <token> <team id> <Org/repo>
     '''
     r = requests.put('https://api.github.com/teams/{}/repos/{}'.format(team_id, repo),
                      auth=(token, ''))
@@ -222,7 +222,7 @@ def remove_repo(token, team_id, repo):
 
     .. code-block:: bash
 
-        salt '*' gh_team.remove_repo <token> <team id> <Org/repo>
+        sudo salt-call --local gh_team.remove_repo <token> <team id> <Org/repo>
     '''
     r = requests.delete('https://api.github.com/teams/{}/repos/{}'.format(team_id, repo),
                      auth=(token, ''))
