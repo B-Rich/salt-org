@@ -114,6 +114,10 @@ This will run the state described in `salt/github/init.sls` and output what it c
 ### Advanced management of github teams
 
 [Pillar](http://salt.readthedocs.org/en/latest/topics/pillar/) is salt's way of exposing structured data that can be used in state files.
+Additionally, Salt treats all files as [Jinja](http://jinja.pocoo.org/docs/) templates by default.
+This opens up the possiblity of programmatically gathering data within Pillar, and then utilizing the data in your state files.
+In this example we will apply this idea to give a team access to all repos for an organization.
+
 Salt looks for pillar data in `/srv/pillar` by default.
 Create this directory (or make it in this repo and symlink it like the `salt` directory), and add a file called `pillar/github/init.sls`:
 
@@ -127,10 +131,12 @@ github:
       members:
         - rgarcia
         ...
+      # Engineering gets access to all repos
       repos:
-        - Clever/clever-js
-        ...
-      strict: True
+        {% for repo in salt["gh_repos.list_org"]("<oauth token>", "Clever") %}
+        - {{ repo.full_name }}
+        {% endfor %}
+      strict: False
 ```
 
 Create a pillar "top" file at `pillar/top.sls` that will load this data on any salt command:
@@ -163,26 +169,6 @@ Now run the state as usual:
 
 ```
 sudo salt-call --local state.sls github
-```
-
-You can also templatize the data contained in pillar.
-This is a useful technique to apply if, for example, you'd like to give a team push access to all public repos:
-
-```yaml
-github:
-  token: <generate and insert an oauth token from your admin account>
-  org: Clever
-  teams:
-    - name: Engineering
-      permission: push
-      members:
-        - rgarcia
-        ...
-      repos:
-        {% for repo in salt["gh_repos.list_org"]("<oauth token>", "Clever") %}
-        - {{ repo.full_name }}
-        {% endfor %}
-      strict: False
 ```
 
 Beyond calling salt modules to fill pillar data, you can also pull data from [external pillars](https://salt.readthedocs.org/en/latest/topics/development/external_pillars.html), including git, mongo, ldap, and others: http://docs.saltstack.com/ref/pillar/all/.
