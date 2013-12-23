@@ -33,7 +33,7 @@ There are also states for managing [mongodb](http://docs.saltstack.com/ref/state
 
 This repo aims to expose execution modules and states for managing users within
 
-* Github teams
+* GitHub teams
 * AWS
 * Google Apps
 * Heroku
@@ -41,7 +41,7 @@ This repo aims to expose execution modules and states for managing users within
 
 It also lets you manage other admin-level settings:
 
-* Github repo hooks
+* GitHub repo hooks
 * AWS IAM Group Policies
 
 This opens up a lot of powerful patterns for managing these systems.
@@ -81,10 +81,10 @@ sudo salt-call --local saltutil.sync_states
 
 ## Examples
 
-### Manage github teams declaratively
+### Manage GitHub teams declaratively
 
 Create a file in this repo called `salt/github/init.sls`.
-This file will describe the state of github you'd like to maintain.
+This file will describe the state of GitHub you'd like to maintain.
 Here's example content:
 
 ```yaml
@@ -111,7 +111,7 @@ sudo salt-call --local state.sls github
 
 This will run the state described in `salt/github/init.sls` and output what it changed.
 
-### Advanced management of github teams
+### Advanced management of GitHub teams
 
 [Pillar](http://salt.readthedocs.org/en/latest/topics/pillar/) is salt's way of exposing structured data that can be used in state files.
 Additionally, Salt treats all files as [Jinja](http://jinja.pocoo.org/docs/) templates by default.
@@ -148,7 +148,7 @@ base:
 ```
 
 Salt lets you define states using jinja templates.
-This means we can change the github state to iterate programatically over the data in pillar.
+This means we can change the GitHub state to iterate programatically over the data in pillar.
 Create a templatized state file at `salt/github/init.sls`:
 
 ```yaml
@@ -175,7 +175,7 @@ Beyond calling salt modules to fill pillar data, you can also pull data from [ex
 
 ## TODO
 
-- Github repo admin settings: hooks
+- GitHub repo admin settings: hooks
 - AWS IAM: users, their credentials, and groups
 - Google Apps mgmt via the admin sdk: users, groups
 - Heroku app collaborators
