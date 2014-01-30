@@ -64,7 +64,7 @@ sudo salt-call --local user.list_users
 ```
 
 Salt looks for configuration, custom modules, etc. in `/srv/salt` default.
-If this directory don't exist, you can symlink this repo's `salt` directory to that location:
+If this directory doesn't exist, you can symlink this repo's `salt` directory to that location:
 
 ```bash
 sudo ln -s `pwd`/salt /srv/salt
