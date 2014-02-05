@@ -175,7 +175,7 @@ Beyond calling salt modules to fill pillar data, you can also pull data from [ex
 
 ## TODO
 
-- AWS IAM: users, their credentials, and groups
+- AWS IAM: policies
 - Google Apps mgmt via the admin sdk: users, groups
 - Heroku app collaborators
 - Sentry
