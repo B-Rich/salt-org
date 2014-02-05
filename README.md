@@ -175,7 +175,6 @@ Beyond calling salt modules to fill pillar data, you can also pull data from [ex
 
 ## TODO
 
-- GitHub repo admin settings: hooks
 - AWS IAM: users, their credentials, and groups
 - Google Apps mgmt via the admin sdk: users, groups
 - Heroku app collaborators
