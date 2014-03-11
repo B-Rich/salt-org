@@ -49,11 +49,16 @@ This opens up a lot of powerful patterns for managing these systems.
 ## Setup
 
 Before any of these examples work you must install salt.
-The salt [bootstrap](https://github.com/saltstack/salt-bootstrap) is an easy way to do this.
+If you're on Linux, the salt [bootstrap](https://github.com/saltstack/salt-bootstrap) is an easy way to do this.
 salt-org is currently tested against salt v0.17.4:
 
 ```bash
 curl -L http://bootstrap.saltstack.org | sudo sh -s -- git v0.17.4
+```
+
+If you're on OS X, [Homebrew](http://brew.sh/) is an easy way to do this:
+```bash
+brew install saltstack
 ```
 
 Test that it works by calling some builtin modules:
