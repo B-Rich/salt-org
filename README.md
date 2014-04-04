@@ -35,6 +35,7 @@ This repo aims to expose execution modules and states for managing users within
 
 * GitHub teams
 * AWS
+* Heroku
 * Google Apps (TODO)
 * Sentry (TODO)
 
