@@ -13,11 +13,6 @@ Collaborators can either be present or absent:
         - members:
           - rafael.garcia@clever.com
         - strict: False
-
-      hk_collaborators.absent:
-        - token: xxxxx
-        - members:
-          - rafael.garcia+removeme@clever.com
 '''
 
 import sys
@@ -72,31 +67,3 @@ def present(name, token, members, strict=False, dry_run=False):
                 return ret
 
     return ret
-
-# def absent(name, token, org, dry_run=False):
-#     '''
-#     Ensure that a team does not exist.
-
-#     name
-#         The name of the team to delete, if present.
-
-#     token
-#         OAuth token created by an admin for the organization.
-
-#     org
-#         The organization that this team belongs to.
-
-#     dry_run
-#         Don't actually make any changes in GitHub.
-#     '''
-#     ret = {'name': name,
-#            'changes': {},
-#            'result': True,
-#            'comment': ''}
-#     teams = __salt__['gh_team.list'](token, org)
-#     team = next((t for t in teams if t["name"] == name), None)
-#     if team == None:
-#         # Team doesn't exist, success!
-#         return
-#     ret['result'] = dry_run or __salt__['gh_team.remove'](token, team["id"])
-#     return ret
