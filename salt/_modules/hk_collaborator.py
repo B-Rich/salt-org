@@ -25,8 +25,7 @@ def list(token, app):
       headers={'Authorization': 'Bearer ' + token,
                'Accept': 'application/vnd.heroku+json; version=3'})
     if not r.ok:
-        log.error('Error making Heroku API request: {}'.format(r))
-        return False
+      raise CommandExecutionError('Error making Heroku API request: {}'.format(r))
     return json.loads(r.content)
 
 def create(token, app, email):
@@ -48,8 +47,7 @@ def create(token, app, email):
       data=json.dumps(payload),
       headers=headers)
     if not r.ok:
-        log.error('Error making Heroku API request: {} {}'.format(r, r.content))
-        return None
+        raise CommandExecutionError('Error making Heroku API request: {} {}'.format(r, r.content))
     return json.loads(r.content)
 
 def delete(token, app, email):
@@ -67,6 +65,5 @@ def delete(token, app, email):
       headers={'Authorization': 'Bearer ' + token,
                'Accept': 'application/vnd.heroku+json; version=3'})
     if not r.ok:
-        log.error('Error making Heroku API request: {} {}'.format(r, r.content))
-        return False
+        raise CommandExecutionError('Error making Heroku API request: {} {}'.format(r, r.content))
     return True

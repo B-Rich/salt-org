@@ -41,10 +41,6 @@ def present(name, token, members, strict=False, dry_run=False):
            'result': True,
            'comment': ''}
     members_currently_full = __salt__['hk_collaborator.list'](token, name)
-    if members_currently_full == False:
-        ret["result"] = False
-        ret["comment"] = "Error listing collaborators"
-        return ret
 
     # ensure membership is correct
     members_currently = set([m["user"]["email"] for m in members_currently_full])
