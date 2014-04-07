@@ -66,4 +66,4 @@ def delete(token, app, email):
                'Accept': 'application/vnd.heroku+json; version=3'})
     if not r.ok:
         raise CommandExecutionError('Error making Heroku API request: {} {}'.format(r, r.content))
-    return True
+    return json.loads(r.content)

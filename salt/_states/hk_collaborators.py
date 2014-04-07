@@ -50,7 +50,7 @@ def present(name, token, members, strict=False, dry_run=False):
     if len(members_to_add):
         ret['changes']['add_member'] = []
         for member_to_add in members_to_add:
-            if dry_run or __salt__['hk_collaborator.create'](token, name, member_to_add) != None:
+            if dry_run or __salt__['hk_collaborator.create'](token, name, member_to_add):
                 ret['changes']['add_member'].append(member_to_add)
             else:
                 ret["result"] = False
@@ -59,7 +59,7 @@ def present(name, token, members, strict=False, dry_run=False):
     if len(members_to_remove):
         ret['changes']['remove_member'] = []
         for member_to_remove in members_to_remove:
-            if dry_run or __salt__['hk_collaborator.delete'](token, name, member_to_remove) == True:
+            if dry_run or __salt__['hk_collaborator.delete'](token, name, member_to_remove):
                 ret['changes']['remove_member'].append(member_to_remove)
             else:
                 ret["result"] = False
