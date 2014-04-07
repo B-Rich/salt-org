@@ -35,14 +35,14 @@ This repo aims to expose execution modules and states for managing users within
 
 * GitHub teams
 * AWS
-* Google Apps
 * Heroku
-* Sentry
+* Google Apps (TODO)
+* Sentry (TODO)
 
 It also lets you manage other admin-level settings:
 
 * GitHub repo hooks
-* AWS IAM Group Policies
+* AWS IAM Group Policies (TODO)
 
 This opens up a lot of powerful patterns for managing these systems.
 
@@ -177,10 +177,3 @@ sudo salt-call --local state.sls github
 ```
 
 Beyond calling salt modules to fill pillar data, you can also pull data from [external pillars](https://salt.readthedocs.org/en/latest/topics/development/external_pillars.html), including git, mongo, ldap, and others: http://docs.saltstack.com/ref/pillar/all/.
-
-## TODO
-
-- AWS IAM: policies
-- Google Apps mgmt via the admin sdk: users, groups
-- Heroku app collaborators
-- Sentry
