@@ -9,6 +9,7 @@ log = logging.getLogger(__name__)
 import requests
 import json
 import urllib
+from salt.exceptions import CommandExecutionError
 
 
 def list(token, app):
