@@ -80,7 +80,9 @@ def add(token, repo, name, config, events, active=True):
 
   .. code-block:: bash
 
-      sudo salt-call --local gh_hooks.add <token> <repo> hipchat '{"auth_token":"xxx"}' '["commit_comment","download","fork","fork_apply","gollum","issues","issue_comment","member","public","pull_request","pull_request_review_comment","push","watch"]'
+      sudo salt-call --local gh_hooks.add <token> <repo> hipchat '{"auth_token":"xxx"}' \
+        '["commit_comment","download","fork","fork_apply","gollum","issues","issue_comment",
+          "member","public","pull_request","pull_request_review_comment","push","watch"]'
   '''
   headers = {'Content-type': 'application/json'}
   log.info(type(events))

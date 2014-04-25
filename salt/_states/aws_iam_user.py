@@ -46,7 +46,7 @@ def present(name, keys=False, dry_run=False):
       ret["comment"] = "Error creating user"
       return ret
 
-  if keys == True:
+  if keys is True:
     keys = __salt__['aws_iam.list_access_keys'](name)
     if len(keys) == 0:
       if dry_run:

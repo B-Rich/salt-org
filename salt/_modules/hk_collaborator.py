@@ -13,7 +13,8 @@ import urllib
 
 def list(token, app):
   '''
-  List all collaborators for a Heroku app. See https://devcenter.heroku.com/articles/platform-api-reference#collaborator-list.
+  List all collaborators for a Heroku app.
+  See https://devcenter.heroku.com/articles/platform-api-reference#collaborator-list.
 
   CLI Example:
 
@@ -32,7 +33,8 @@ def list(token, app):
 
 def create(token, app, email):
   '''
-  Create a new collaborator for a Heroku app. See https://devcenter.heroku.com/articles/platform-api-reference#collaborator-create.
+  Create a new collaborator for a Heroku app.
+  See https://devcenter.heroku.com/articles/platform-api-reference#collaborator-create.
 
   CLI Example:
 

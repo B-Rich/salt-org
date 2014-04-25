@@ -44,10 +44,12 @@ def present(name, token, org, members=None, permission=None,
       The organization that this team belongs to.
 
   members
-      List of users that should be part of the team. Pass None to accept the existing state of membership in this team.
+      List of users that should be part of the team.
+      Pass None to accept the existing state of membership in this team.
 
   permission
-      The permission to grant the team: pull, push, or admin. Pass None to accept existing or default permission.
+      The permission to grant the team: pull, push, or admin.
+      Pass None to accept existing or default permission.
 
   repos
       List of repos to give this team access to. Pass None to accept existing state of repos.

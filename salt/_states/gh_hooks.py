@@ -112,7 +112,8 @@ def present(name, token, hooks, strict=False, dry_run=False):
     else:  # hook already exists, potentially patch
       patch = {}
       config_diff = DictDiffer(existing_hook['config'], specified_hook['config'])
-      if len(config_diff.added()) > 0 or len(config_diff.removed()) > 0 or len(config_diff.changed()):
+      if (len(config_diff.added()) > 0 or len(config_diff.removed()) > 0 or
+              len(config_diff.changed())):
         patch['config'] = specified_hook['config']
       if existing_hook["active"] != specified_hook["active"]:
         patch["active"] = specified_hook["active"]

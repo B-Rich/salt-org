@@ -37,7 +37,7 @@ def _run_aws(cmd, **kwargs):
     return None
   return rtn
 
-### USERS ###
+# USERS
 
 
 def list_users():
@@ -78,7 +78,7 @@ def update_user(name, **kwargs):
   '''
   return _run_aws('iam update-user', **{'user-name': name}.update(kwargs))
 
-### GROUPS ###
+# GROUPS
 
 
 def list_groups():
@@ -118,7 +118,7 @@ def update_group(name, new_name):
   '''
   return _run_aws('iam update-group', **{'group-name': name, 'new-group-name': new_name})
 
-### GROUP MEMBERSHIP ###
+# GROUP MEMBERSHIP
 
 
 def add_user_to_group(user, group):
@@ -134,7 +134,7 @@ def remove_user_from_group(user, group):
   '''
   return _run_aws('iam remove-user-from-group', **{'user-name': user, 'group-name': group})
 
-### ACCESS KEYS ###
+# ACCESS KEYS
 
 
 def list_access_keys(user):

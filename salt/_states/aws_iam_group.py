@@ -26,7 +26,8 @@ def present(name, members=None, strict=False, dry_run=False):
       The name of the group to manage.
 
   members
-      List of users that should be part of the group. Pass None to accept the existing state of membership in this team.
+      List of users that should be part of the group.
+      Pass None to accept the existing state of membership in this team.
 
   strict
       Remove from the group any unlisted users. False by default.
