@@ -123,50 +123,53 @@ def list_members(token, team_id):
   return json.loads(r.content)
 
 
-def get_member(token, team_id, user):
+def get_membership(token, team_id, username):
   '''
-  Check if a user belongs to a team. Returns True/False.
+  Get a user's membership with a team.
 
   CLI Example:
 
   .. code-block:: bash
 
-      sudo salt-call --local gh_team.get_member <token> <team id> <username>
+      sudo salt-call --local gh_team.get_membership <token> <team id> <username>
   '''
-  r = requests.get('https://api.github.com/teams/{}/members/{}'.format(team_id, user),
-                   auth=(token, ''))
-  return r.status_code == 204
-
-
-def add_member(token, team_id, user):
-  '''
-  Add a user to a team
-
-  CLI Example:
-
-  .. code-block:: bash
-
-      sudo salt-call --local gh_team.add_member <token> <team id> <username>
-  '''
-  r = requests.put('https://api.github.com/teams/{}/members/{}'.format(team_id, user),
+  r = requests.get('https://api.github.com/teams/{}/memberships/{}'.format(team_id, username),
                    auth=(token, ''))
   if not r.ok:
     log.error('Error making github api request: {} {}'.format(r, r.content))
-    return False
-  return True
+    return None
+  return json.loads(r.content)
 
 
-def remove_member(token, team_id, user):
+def add_membership(token, team_id, username):
   '''
-  Add a user to a team
+  Add a membership between a user and a team.
 
   CLI Example:
 
   .. code-block:: bash
 
-      sudo salt-call --local gh_team.remove_member <token> <team id> <username>
+      sudo salt-call --local gh_team.add_membership <token> <team id> <username>
   '''
-  r = requests.delete('https://api.github.com/teams/{}/members/{}'.format(team_id, user),
+  r = requests.put('https://api.github.com/teams/{}/memberships/{}'.format(team_id, username),
+                   auth=(token, ''))
+  if not r.ok:
+    log.error('Error making github api request: {} {}'.format(r, r.content))
+    return None
+  return json.loads(r.content)
+
+
+def remove_membership(token, team_id, username):
+  '''
+  Remove a membership between a user and a team.
+
+  CLI Example:
+
+  .. code-block:: bash
+
+      sudo salt-call --local gh_team.remove_membership <token> <team id> <username>
+  '''
+  r = requests.delete('https://api.github.com/teams/{}/memberships/{}'.format(team_id, username),
                       auth=(token, ''))
   if not r.ok:
     log.error('Error making github api request: {} {}'.format(r, r.content))
