@@ -71,7 +71,7 @@ def present(name, token, org, members=None, permission=None,
     # Team doesn't exist
     if dry_run:
       ret['changes']['add'] = {'org': org, 'name': name, 'permission': permission, 'repos': repos}
-      return
+      return ret
     team = __salt__['gh_team.add'](token, org, name, permission, repos)
     if team is not None:
       ret['changes']['add'] = {'org': org, 'name': name, 'permission': permission, 'repos': repos}
