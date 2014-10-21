@@ -120,11 +120,23 @@ class GHTeamTest(unittest.TestCase):
     self.assertEqual(resp[0]["name"], "Owners")
 
   @responses.activate
+  def test_list_false(self):
+    responses.add(responses.GET, 'https://api.github.com/orgs/:org/teams', status=400)
+    resp = gh_team.list("token", ":org")
+    self.assertEqual(resp, False)
+
+  @responses.activate
   def test_add(self):
     responses.add(responses.POST, 'https://api.github.com/orgs/:org/teams',
                   body=FAKE_TEAM, status=200, content_type='application/json')
     resp = gh_team.add("token", ":org", "Owners", "admin")
     self.assertEqual(resp["name"], "Owners")
+
+  @responses.activate
+  def test_add_none(self):
+    responses.add(responses.POST, 'https://api.github.com/orgs/:org/teams', status=400)
+    resp = gh_team.add("token", ":org", "Owners", "admin")
+    self.assertEqual(resp, None)
 
   @responses.activate
   def test_get(self):
@@ -134,10 +146,22 @@ class GHTeamTest(unittest.TestCase):
     self.assertEqual(resp["name"], "Owners")
 
   @responses.activate
-  def test_remove(self):
+  def test_get_none(self):
+    responses.add(responses.GET, 'https://api.github.com/teams/1', status=400)
+    resp = gh_team.get("token", "1")
+    self.assertEqual(resp, None)
+
+  @responses.activate
+  def test_remove_true(self):
     responses.add(responses.DELETE, 'https://api.github.com/teams/1', status=204)
     resp = gh_team.remove("token", "1")
     self.assertEqual(resp, True)
+
+  @responses.activate
+  def test_remove_false(self):
+    responses.add(responses.DELETE, 'https://api.github.com/teams/1', status=400)
+    resp = gh_team.remove("token", "1")
+    self.assertEqual(resp, False)
 
   @responses.activate
   def test_edit(self):
@@ -147,6 +171,12 @@ class GHTeamTest(unittest.TestCase):
     self.assertEqual(resp["name"], "Owners")
 
   @responses.activate
+  def test_edit_none(self):
+    responses.add(responses.PATCH, 'https://api.github.com/teams/1', status=400)
+    resp = gh_team.edit("token", "1", "name", "permission")
+    self.assertEqual(resp, None)
+
+  @responses.activate
   def test_list_members(self):
     responses.add(responses.GET, 'https://api.github.com/teams/1/members',
                   body=FAKE_TEAM_MEMBERS, status=200, content_type='application/json')
@@ -154,11 +184,16 @@ class GHTeamTest(unittest.TestCase):
     self.assertEqual(resp[0]["login"], "octocat")
 
   @responses.activate
+  def test_list_members_none(self):
+    responses.add(responses.GET, 'https://api.github.com/teams/1/members', status=400)
+    resp = gh_team.list_members("token", "1")
+    self.assertEqual(resp, None)
+
+  @responses.activate
   def test_list_repos(self):
-    responses.add(responses.GET, 'https://api.github.com/teams/1/repos',
-                  body=FAKE_TEAM_REPOS, status=200, content_type='application/json')
+    responses.add(responses.GET, 'https://api.github.com/teams/1/repos', status=400)
     resp = gh_team.list_repos("token", "1")
-    self.assertEqual(resp[0]["name"], "Hello-World")
+    self.assertEqual(resp, None)
 
   @responses.activate
   def test_get_repo_true(self):
@@ -182,8 +217,22 @@ class GHTeamTest(unittest.TestCase):
     self.assertEqual(resp, True)
 
   @responses.activate
+  def test_add_repo_false(self):
+    responses.add(responses.PUT, 'https://api.github.com/teams/1/repos/:owner/:repo',
+                  status=400, content_type='application/json')
+    resp = gh_team.add_repo("token", "1", ":owner/:repo")
+    self.assertEqual(resp, False)
+
+  @responses.activate
   def test_remove_repo_true(self):
     responses.add(responses.DELETE, 'https://api.github.com/teams/1/repos/:owner/:repo',
                   status=204, content_type='application/json')
     resp = gh_team.remove_repo("token", "1", ":owner/:repo")
     self.assertEqual(resp, True)
+
+  @responses.activate
+  def test_remove_repo_false(self):
+    responses.add(responses.DELETE, 'https://api.github.com/teams/1/repos/:owner/:repo',
+                  status=400, content_type='application/json')
+    resp = gh_team.remove_repo("token", "1", ":owner/:repo")
+    self.assertEqual(resp, False)
