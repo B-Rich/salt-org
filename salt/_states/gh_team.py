@@ -104,7 +104,7 @@ def present(name, token, org, members=None, permission=None,
     if len(members_to_add):
       ret['changes']['add_member'] = []
       for member_to_add in members_to_add:
-        if dry_run or __salt__['gh_team.add_member'](token, team["id"], member_to_add):
+        if dry_run or __salt__['gh_team.add_membership'](token, team["id"], member_to_add):
           ret['changes']['add_member'].append(member_to_add)
         else:
           ret["result"] = False
@@ -113,7 +113,7 @@ def present(name, token, org, members=None, permission=None,
     if len(members_to_remove):
       ret['changes']['remove_member'] = []
       for member_to_remove in members_to_remove:
-        if dry_run or __salt__['gh_team.remove_member'](token, team["id"], member_to_remove):
+        if dry_run or __salt__['gh_team.remove_membership'](token, team["id"], member_to_remove):
           ret['changes']['remove_member'].append(member_to_remove)
         else:
           ret["result"] = False

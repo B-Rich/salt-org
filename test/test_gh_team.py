@@ -52,6 +52,11 @@ FAKE_TEAM_MEMBERS = """[
   }
 ]"""
 
+FAKE_TEAM_MEMBERSHIP = """{
+  "url": "https://api.github.com/teams/1/memberships/octocat",
+  "state": "active"
+}"""
+
 FAKE_TEAM_REPOS = """[
   {
     "id": 1296269,
@@ -188,6 +193,48 @@ class GHTeamTest(unittest.TestCase):
     responses.add(responses.GET, 'https://api.github.com/teams/1/members', status=400)
     resp = gh_team.list_members("token", "1")
     self.assertEqual(resp, None)
+
+  @responses.activate
+  def test_get_membership(self):
+    responses.add(responses.GET, 'https://api.github.com/teams/:id/memberships/:username',
+                  body=FAKE_TEAM_MEMBERSHIP, status=200, content_type='application/json')
+    resp = gh_team.get_membership("token", ":id", ":username")
+    self.assertEqual(resp["state"], "active")
+
+  @responses.activate
+  def test_get_membership_none(self):
+    responses.add(responses.GET, 'https://api.github.com/teams/:id/memberships/:username',
+                  status=400)
+    resp = gh_team.get_membership("token", ":id", ":username")
+    self.assertEqual(resp, None)
+
+  @responses.activate
+  def test_add_membership(self):
+    responses.add(responses.PUT, 'https://api.github.com/teams/:id/memberships/:username',
+                  body=FAKE_TEAM_MEMBERSHIP, status=200, content_type='application/json')
+    resp = gh_team.add_membership("token", ":id", ":username")
+    self.assertEqual(resp["state"], "active")
+
+  @responses.activate
+  def test_add_membership_none(self):
+    responses.add(responses.PUT, 'https://api.github.com/teams/:id/memberships/:username',
+                  status=400)
+    resp = gh_team.add_membership("token", ":id", ":username")
+    self.assertEqual(resp, None)
+
+  @responses.activate
+  def test_remove_membership(self):
+    responses.add(responses.DELETE, 'https://api.github.com/teams/:id/memberships/:username',
+                  status=204)
+    resp = gh_team.remove_membership("token", ":id", ":username")
+    self.assertEqual(resp, True)
+
+  @responses.activate
+  def test_remove_membership_false(self):
+    responses.add(responses.DELETE, 'https://api.github.com/teams/:id/memberships/:username',
+                  status=400)
+    resp = gh_team.remove_membership("token", ":id", ":username")
+    self.assertEqual(resp, False)
 
   @responses.activate
   def test_list_repos(self):
