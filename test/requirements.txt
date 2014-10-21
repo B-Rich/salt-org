@@ -1,0 +1,4 @@
+autopep8==1.0.1
+pep8==1.5.6
+requests==2.4.3
+responses==0.3.0
